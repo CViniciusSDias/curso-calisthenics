@@ -8,47 +8,60 @@ use PHPUnit\Framework\TestCase;
 
 class StudentTest extends TestCase
 {
+    private Student $student;
+
+    protected function setUp(): void
+    {
+        $this->student = new Student(
+            'email@example.com',
+            new \DateTimeImmutable('1997-10-15'),
+            'Vinicius',
+            'Dias',
+            'Rua de Exemplo',
+            '71B',
+            'Meu Bairro',
+            'Minha Cidade',
+            'Meu estado',
+            'Brasil'
+        );
+    }
+
     public function testStudentWithoutWatchedVideosHasAccess()
     {
-        $student = new Student();
-        self::assertTrue($student->hasAccess());
+        self::assertTrue($this->student->hasAccess());
     }
 
     public function testStudentWithFirstWatchedVideoBefore90DaysHasAccess()
     {
         $date = new \DateTimeImmutable('89 days');
-        $student = new Student();
-        $student->watch(new Video(), $date);
+        $this->student->watch(new Video(), $date);
 
-        self::assertTrue($student->hasAccess());
+        self::assertTrue($this->student->hasAccess());
     }
 
     public function testStudentWithFirstWatchedVideoAfter90DaysDoesntHaveAccess()
     {
         $date = new \DateTimeImmutable('-90 days');
-        $student = new Student();
-        $student->watch(new Video(), $date);
+        $this->student->watch(new Video(), $date);
 
-        self::assertFalse($student->hasAccess());
+        self::assertFalse($this->student->hasAccess());
     }
 
     public function testStudentWithFirstWatchedVideoAfter90DaysButOtherVideosWatchedDoesntHaveAccess()
     {
-        $student = new Student();
-        $student->watch(new Video(), new \DateTimeImmutable('-90 days'));
-        $student->watch(new Video(), new \DateTimeImmutable('-60 days'));
-        $student->watch(new Video(), new \DateTimeImmutable('-30 days'));
+        $this->student->watch(new Video(), new \DateTimeImmutable('-90 days'));
+        $this->student->watch(new Video(), new \DateTimeImmutable('-60 days'));
+        $this->student->watch(new Video(), new \DateTimeImmutable('-30 days'));
 
-        self::assertFalse($student->hasAccess());
+        self::assertFalse($this->student->hasAccess());
     }
 
     public function testStudentWithFirstWatchedVideoBefore90DaysButOtherVideosWatchedHasAccess()
     {
-        $student = new Student();
-        $student->watch(new Video(), new \DateTimeImmutable('-89 days'));
-        $student->watch(new Video(), new \DateTimeImmutable('-60 days'));
-        $student->watch(new Video(), new \DateTimeImmutable('-30 days'));
+        $this->student->watch(new Video(), new \DateTimeImmutable('-89 days'));
+        $this->student->watch(new Video(), new \DateTimeImmutable('-60 days'));
+        $this->student->watch(new Video(), new \DateTimeImmutable('-30 days'));
 
-        self::assertTrue($student->hasAccess());
+        self::assertTrue($this->student->hasAccess());
     }
 }

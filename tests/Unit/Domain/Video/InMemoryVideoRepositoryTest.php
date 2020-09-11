@@ -20,8 +20,8 @@ class InMemoryVideoRepositoryTest extends TestCase
             $repository->add($video);
         }
 
-        $student = new Student();
-        $student->setBd(new \DateTimeImmutable('-19 years'));
+        $student = $this->createStub(Student::class);
+        $student->method('getBd')->willReturn(new \DateTimeImmutable('-19 years'));
 
         $videoList = $repository->videosFor($student);
 
