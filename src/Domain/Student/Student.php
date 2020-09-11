@@ -53,6 +53,11 @@ class Student
         return $this->email;
     }
 
+    public function setBd(\DateTimeInterface $bd): void
+    {
+        $this->bd = $bd;
+    }
+
     public function getBd(): \DateTimeInterface
     {
         return $this->bd;
@@ -68,7 +73,7 @@ class Student
         if ($this->watchedVideos->count() > 0) {
             $this->watchedVideos->sort(fn (\DateTimeInterface $dateA, \DateTimeInterface $dateB) => $dateA <=> $dateB);
             /** @var \DateTimeInterface $firstDate */
-            $firstDate = $this->watchedVideos->first();
+            $firstDate = $this->watchedVideos->first()->toArray()['value'];
             $today = new \DateTimeImmutable();
 
             if ($firstDate->diff($today)->days >= 90) {
