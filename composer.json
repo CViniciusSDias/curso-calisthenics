@@ -1,0 +1,10 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Alura\\Calisthenics\\": "src/"
+        }
+    },
+    "require": {
+        "ext-ds": "*"
+    }
+}
