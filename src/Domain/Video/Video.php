@@ -10,6 +10,11 @@ class Video
     private int $visibility = self::PRIVATE;
     private int $ageLimit;
 
+    public function publish(): void
+    {
+        $this->visibility = self::PUBLIC;
+    }
+
     public function getVisibility(): int
     {
         return $this->visibility;
