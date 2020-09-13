@@ -11,13 +11,13 @@ class Student
     private Email $email;
     private DateTimeInterface $birthDate;
     private WatchedVideos $watchedVideos;
+    private FullName $fullName;
     public string $street;
     public string $number;
     public string $province;
     public string $city;
     public string $state;
     public string $country;
-    private FullName $fullName;
 
     public function __construct(Email $email, DateTimeInterface $birthDate, FullName $fullName, string $street, string $number, string $province, string $city, string $state, string $country)
     {
