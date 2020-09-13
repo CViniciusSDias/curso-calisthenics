@@ -8,9 +8,11 @@ class InMemoryVideoRepository implements VideoRepository
 {
     private array $videos;
 
-    public function add(Video $video): void
+    public function add(Video $video): self
     {
         $this->videos[] = $video;
+
+        return $this;
     }
 
     public function videosFor(Student $student): array
