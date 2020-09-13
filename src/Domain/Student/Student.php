@@ -67,4 +67,12 @@ class Student
 
         return $firstDate->diff($today)->days < 90;
     }
+
+    public function age(): int
+    {
+        $today = new \DateTimeImmutable();
+        $dateInterval = $this->bd->diff($today);
+
+        return $dateInterval->y;
+    }
 }
